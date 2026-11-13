@@ -3,6 +3,7 @@ project(simd_computing VERSION 0.1.0 LANGUAGES CXX)
 
 option(SIMD_ENABLE_OPENMP "Enable OpenMP when available" ON)
 option(SIMD_BUILD_TESTS "Build unit tests" ON)
+option(SIMD_BUILD_BENCHMARKS "Build benchmark executable" ON)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,6 +30,11 @@ endif()
 
 add_executable(simd_demo src/main.cpp)
 target_link_libraries(simd_demo PRIVATE simd_computing)
+
+if(SIMD_BUILD_BENCHMARKS)
+    add_executable(simd_bench src/benchmark.cpp)
+    target_link_libraries(simd_bench PRIVATE simd_computing)
+endif()
 
 if(SIMD_BUILD_TESTS)
     enable_testing()
